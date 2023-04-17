@@ -1,0 +1,5 @@
+> We will apply useEffect to fetch data from database as soon as AvailableMeals component loads.
+> fetch() returns a promise since sending an http request is an async task. We can either use then or async-await to handle the promise.
+> However, there is a problem. Function inside useEffect should not be asynchronous/should not return a promise. It should be synchronous. To use async-await inside useEffect, create a new function inside useEffect.
+
+> Now we need to handle a loading and error state for a better UX.

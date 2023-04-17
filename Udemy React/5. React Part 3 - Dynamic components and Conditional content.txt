@@ -1,0 +1,13 @@
+> Instead of repeating the ExpenseItem for each element, we should generate it dynamically.
+> Next, we want to display new ExpenseItem that is added by user. Need to create expenses state for that.
+> We keep getting a key warning in the console. When a new entry is made to the list, if we check in the HTML layout, a new entry goes to the bottom of the list and then all entries are edited to match the order in the array. This is inefficient and could potentially lead to bugs if later state is used. This is happening because all the items in the list look the same to react and it doesn't know where to add the new item.
+> To solve this, we need to add a key prop to ExpenseItem so that react can uniquely identify an entry and doesn't have to make modifications to the entire list when a new entry is made.
+> key prop can be added to custom or built-in components. Typically key is the primary key from a database.
+> Now on adding an entry to the list, the entry is directly added without editing the rest of the entries.
+
+> Conditional content:
+> Rendering different output under different conditions.
+> Long statements are not allowed inside {}. But we can write ternary expression. There is a short version of ternary using && which is easier to read. If the condition before && is true, the HTML after && is displayed.
+> Another alternative to to write the logic freely before return.
+
+> We now want to add chart for expenses.

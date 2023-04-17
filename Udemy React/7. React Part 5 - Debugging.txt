@@ -1,0 +1,7 @@
+> Breakpoints:
+> Go to Inspect>Sources to see the files being executed for the react project.
+> Users>src
+> In the files breakpoints can be added, we can move through function calls, check values of variables.
+
+> React Developer Tools extension:
+> We get Components and Profiler tabs.

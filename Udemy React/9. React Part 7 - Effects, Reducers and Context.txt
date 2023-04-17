@@ -1,0 +1,66 @@
+-> Effect (Side Effect):
+> Tasks not directly related to updating the DOM.
+> useEffect hook is used for this.
+> useEffect has 2 parameters:
+1. function () => {} that executes after every component evaluation IF the specified dependencies in the second parameter changed
+2. array of dependencies [dependencies]
+
+> Install dummy project. We want to make sure the login credentials still remain after reloading page. By using state, the js variables go back to their default values on reload.
+> We want the login data to persist even after reload and even on restarting the app, we want to check if data was persisted and if it was, then the user should be logged in automatically. We will use useEffect for this.
+> We want to store the data in browser storage like cookies, local storage. We will use local storage. It is totally independent of react.
+> Go to Application tab>Local Storage
+> On reload, we want to check if local storage has that key-value pair. But we end up creating an infinite loop due to changing state if we don't use useEffect.
+> Since there is empty dependencies [], the useEffect function parameter will run only during the first render (and app reload) but not on any state change.
+
+> useEffect with dependencies:
+> In the same project, go to Login.js
+> Instead of having setFormIsValid in both emailChangeHandler and passwordChangeHandler, we can useEffect and add email and password as dependencies.
+> Not even adding empty dependencies [] will make the function inside useEffect run whenever there is a state change. useEffect is useless in this case and we may enter infinite loop. Adding empty dependencies [] makes the useEffect trigger the function on first render and reloads but not any state changes. Adding dependencies will trigger the function on first render, reloads and at state change of dependencies.
+
+> What to add as dependencies in useEffect:
+> You must add all "things" you use in your effect function if those "things" could change because your component (or some parent component) re-rendered. That's why variables or state defined in component functions, props or functions defined in component functions have to be added as dependencies!
+
+> CleanUp function:
+> Currently we are tracking every keystroke. This is inefficient. An alternative is to check for validity when the user makes a pause in typing. This is called debouncing.
+> We can do this using setTimeout and a CleanUp function.
+> The CleanUp function is run before the second and every subsequent setTimeout call. As a result, the timer is cleared (restarted) before useEffect calls the timer again i.e., on every keystroke. CleanUp function is also run when the component is unmounted from the DOM.
+
+
+-> useReducer:
+> Will help in state management like useState but capable of more complexity.
+> Helpful if multiple states are related to each other in some way i.e., updating a state depends on another state.
+> We should use function form inside state update function to update a state that depends on its previous state. This is the right approach. But function form only gives us the previous state of the state we are using the updating state function of. We cannot get the previous state of another state. In such cases too, useReducer is helpful.
+
+> The parameters of the reducer function inside useReducer are:
+1. last state snapshot
+2. action dispatched
+> The reducer function should return a new state.
+
+> We can update state which depends on a previous state without using function form, if the update function is inside useEffect as the function will be called after the states mentioned in the dependencies change.
+
+
+-> Context API:
+> In App.js isLoggedIn state and logoutHandler function are being passed as props to the MainHeader.js where they are not being utilized but again being forwarded to Navigation.js
+> This forwarding of props through a chain of components can become complicated in big projects.
+> To help with this, there is a component-wide, "behind-the-scenes" State Storage called React Context API. Using Context, we can pass data between components without creating long prop chains.
+> Create a store folder in src with auth-context.js
+> We can have multiple contexts for multiple global states.
+> createContext function returns an object that will contain a component (so not exactly a component).
+
+> To provide this Context, we need to wrap, in jsx code, all the components that need to tap into the Context with AuthContext.Provider. Any component not wrapped will not be able to listen to the Context.
+> Since we want auth-context in all components, we should wrap everything in App.js with it.
+> Since AuthContext is not exactly a component, we have to use AuthContext.Provider to use it as a wrapper.
+> Now all components and all their children will have access to AuthContext.
+
+> To listen to this Context, there are 2 ways:
+1. AuthContext.Consumer
+2. Using useContext hook (typically used)
+> For both above cases, we use "value" built-in prop to change the default context data.
+> We can create a dynamic context to not just pass data but also functions.
+> For Login and Home components, the functions are directly utilized so we don't need to use context.
+> Use Context only when you want to pass specific data to a component that would otherwise have to be passed through a long chain of props. In all other cases, use props.
+> Additionally, all the auth code can be moved from App.js to auth-context.js
+
+> We now want to refactor an input component.
+> Next we want to call focus() on our own input component.
+> Function components cannot be given refs. As an alternative useImperativeHandle along with forwardRef(props, ref) can be used.

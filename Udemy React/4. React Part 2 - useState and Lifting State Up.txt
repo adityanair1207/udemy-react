@@ -1,0 +1,42 @@
+> Event handlers in react start with on...
+> Can be added to any built in HTML element.
+> These events point to a function. (Note: do not execute the function, simply point to it. Don't add ())
+
+> useState():
+> Changing regular variables does not result in react re-evaluating the change to a component and re-rendering it. Hence, State is required. (Note: even if it were to re-render, the regular variable would just be reinitialized to its initial value.)
+> To do this, we need a function called useState imported from react. This function allows us to define values as State, where changes to these State values results in the component function being called again and reflecting the changed State.
+> useState is a react hook. (Note: hooks start with use). They can only be used inside react component functions.
+> Using useState, we create a variable whose change is reflected in the component.
+> useState requires a default/initial state value.
+> useState returns an array of 2 elements. The first value is the variable itself having the current value and second is a function to change the value of variable. Done using array destructuring.
+> To change the value of variable, use setVariableName("new-value"). When triggered, the entire Component will be executed again and the new value of the variable will be reflected.
+> The state is updated on a per instance basis i.e., changing the state in one instance makes react re-evaluate the component for that instance only.
+> const can be used with useState because we do not assign any value with = (which would not be allowed for const). Instead react handles the state change by re-executing the entire component with the new state value.
+> The value inside useState() is used only the first time the component is called at an instance.
+
+> Getting user input for NewExpense:
+> We want to return a form to the user.
+> Then we have to listen for user input. onChange can be used for all input types.
+> event object is automatically created for a function handling an event. In the event object, we get target inside which the value entered exists.
+> We want to store this value somewhere so that it can be used when the form is submitted. This value should survive even when the component is re-evaluated, hence we need useState hook. When state changes, component will update. So even though for now, we are only storing the input in a state and not updating anywhere, component will still be re-evaluated.
+> event.target.value will always be stored as a string.
+> Multiple states can be used inside a component or they can be grouped together in a single useState as an object.
+> The separate functions to handle changes in the respective fields still need to be there. Spread operator needs to be used on the state so as to not clear their values as the useState is a grouping of all states and all states will be affected when set is called. The value which changes is overwritten with the new value after applying spread operator on input state.
+> Thus we are depending on the previous state to set the current state. The way we have done it is not recommended, instead we should use an alternative form of the state updating function.
+> This alternative form has an anonymous arrow function that is called by react and is given the previous state snapshot.
+> This way of doing is recommended because react schedules state updates and there is a chance of getting incorrect previous state values using Approach 2.
+
+> Now on clicking the submit button, we want to combine the state values into a single object which we can use for different purposes.
+> When submit button of form is clicked, the form triggers an event to which we can listen. This is the onSubmit event. By default, when onSubmit event occurs, the browser reloads. To prevent this use event.preventDefault().
+> Two-Way Binding:
+> After submitting, we want to clear the values. This is done using Two-Way Binding, which simply means that for inputs, we don't just listen for changes, we can also pass a new value back into the input so that we can change or reset the input programmatically.
+> Two-Way Binding is done by adding a value attribute to the input fields and setting default values in the submitHandler.
+> Our goal now should be to sent this new Expense object to App.js so that it can be added to the expenses object array to be displayed with the rest of the expenses.
+> Props are used to pass data from parent to child components. We now want to pass data in the opposite direction.
+> First we will pass the ExpenseForm data to the NewExpense component as it is the direct parent component. From NewExpense component we can pass the data to App component.
+> In NewExpense component, create a prop onSaveExpenseData which points to a function that will be triggered when something happens (in this case when user submits the form) inside ExpenseForm component.
+> Since onSaveExpenseData is a prop, it can be accessed inside ExpenseForm. This prop will be executed inside ExpenseForm and since it points to saveExpenseDataHandler(), that function will be executed and we get the data from ExpenseForm component to NewExpense component.
+> Sibling components can pass data only through common parent component. Data cannot be passed directly. Passing data from child to parent component is called Lifting State Up.
+> Controlled component: Applying Two-Way Binding on our custom component so that values and changes to the values in the component are controlled by a parent component.
+> Stateful components: Components that manage a state/s.
+> Stateless components: Components that do not manage a state. Also called presentational/dumb component.

@@ -1,0 +1,21 @@
+> React is simply a JS library for building UIs. It deals only with components, props, states and context.
+> ReactDOM is the interface to the web. ReactDOM works with Real DOM to display to the user by Virtual DOM Diffing.
+> Changes in props, state or context triggers reevaluation of the component/s. If there is a difference between Virtual DOM and real DOM, the difference is rendered on the real DOM.
+> When parent component is reevaluated, all child components are also reevaluated irrespective of any state/prop change in child component.
+> Even though reevaluation happens on Virtual DOM, reevaluating all child components even though there is no change is a waste of resources.
+> So we want that a child component should be reevaluated only if there is a change in its props. To do this, in the child component, in the export line, use React.memo(component-name)
+> However, React now has to keep track of prop changes which comes with its own performance cost. So it depends on the component.
+> React.memo is useful when large branches can be cut off from reevaluation.
+> React.memo only works on components with only primitive value props and not props that point to a function. This is because React.memo internally uses === for comparison which does not work on non-primitive types like objects, arrays, functions.
+> To solve this useCallback hook is used. It allows us to store functions across component executions.
+> Syntax is similar to useEffect where we need to provide an array of dependencies as second parameter. Dependencies need to be added so that the function can be re-created when there is a change in the dependencies and new values of dependencies can be used by function. If not done, the function will use the old value of dependencies because of closure property. Thus, the function will only be re-created when dependencies change.
+
+> If a component is re-executed on state change, how does the state still persist. This is because state is managed by React and it makes sure that the default state value is used only once i.e., the first time a component is rendered.
+> When a state-updating function is executed, the state does not change instantly but instead a state change is scheduled which also occurs very quickly so it feels instantaneous. React can however postpone state changes, if for instance other higher priority tasks like user input handling are being executed. Multiple state changes maybe scheduled during this.
+> Once a state changes, the component is reevaluated/re-executed.
+> Bacause multiple state changes maybe scheduled, we should use the function form in a state-updating function that depends on a previous state. This is to avoid errors or inconsistencies in state. The function form makes sure the latest state snapshot is used.
+> Similarly, useEffect with its dependencies also makes sure that latest states are used.
+> If more than one state updating function is called one after the other in the same block of synchronous code, React will batch them together into one scheduled state update. This is called state batching.
+
+> Sometimes in a component where prop changes do occur (this leading to reevaluation of the component), we may not want everything in the component to be re-executed, especially performance intensive tasks. For this useMemo hook can be used.
+> Similar to how useCallback stores function across component executions, useMemo can be used to store any kind of data. It also has array of dependencies to make sure the stored valus is updated whenever any value used changes.

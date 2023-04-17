@@ -1,0 +1,43 @@
+> React is a JS library for building UIs.
+> React is all about Components.
+> HTML, CSS and JS are combined in React.
+> React uses declarative approach.
+
+> npx create-react-app react-complete-guide
+> cd react-complete-guide
+> npm start
+
+> If copying pasting another react app, use npm install to install dependencies from package.json
+
+> Go to src folder. Focus on  App.js, index.css, index.js
+> index.js is the first file executed when project is run.
+> Since react creates SPAs, only a single HTML file exists, index.html in public folder. This file has a div with id root inside which the entire react application is injected.
+> To import js files, no need to use .js extension.
+> Use ./ to look in the same folder.
+> App.js is the first component. It is rendered in the div element with id root.
+> App.js file has an App() function that returns HTML elements. This is done using JSX.
+
+> Create new file for each component. Create components folder in src folder.
+> ExpenseItem.js
+> A component in react is simply a JS function that returns JSX code.
+> Custom components must start with upper case characters.
+> A component should only return one single JSX element.
+> To use a CSS file, simply use import "./CSS-File-Name.css";
+
+> Lets add JS code inside ExpenseItem.js to add dynamic capabilities. Use {} to insert JS in HTML.
+
+> Props:
+> Components are reusable. To make the data dynamic, props are used.
+> Props are used to pass data to a component from where it is used.
+> In App.js create and expenses array of JS objects and use the data as props.
+> To access the data in the component function, a single parameter is used. Usually named props. props stores data in the form of key-value pairs where key is the property name and value is the property data.
+
+> We want to improve the way in which date is shown.
+> We can also create a separate ExpenseDate.js
+> If a tag has no content between opening and closing tag, it can be made self-closing.
+> Add ExpenseDate.css
+
+> Reusable wrapper component:
+> If multiple components have similar css styling, the common styling can be separated into a component called Card.cs which forms a shell/template for these components.
+> By default, custom component cannot be used as wrapper for JSX. To enable this, use {props.childern} in the Card.js
+> Also by default, className is not supported by custom components. To do this create a const classes that combines the necessary classNames in Card.js

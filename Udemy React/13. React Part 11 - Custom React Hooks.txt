@@ -1,0 +1,9 @@
+-> Custom Hooks:
+> Functions just like regular hooks except they can outsource stateful logic into re-usable functions. Custom hooks can also use other React hooks and React state.
+> In projects we might notice components doing similar tasks thus leading to code duplication. Thus we would want to refactor the code and make a function which holds the shared code. However, the code we want to re-use uses React hooks and as per the rules of hooks, we cannot use hooks in any random function. Hooks can only be used in React component functions or in Custom hooks. Thus we need to build a Custom hook in such cases.
+> Just like components, each custom hook is stored in a separate file. The name of the hook should start with use to make sure React knows that a function is a hook and can war us if we break any hook rules.
+> Custom hooks can return whatever you want it to. For instance, useState returns and array consisting of state and setState.
+
+> In Demo2, App.js and NewTask.js have similar functionality and manage states. Therefore, we can use a custom hook for them.
+
+> Note: When we manage state/s in a custom hook, the component that uses the custom hook implicitly uses those state/s in the custom hook. Therefore, state change in custom hook is equivalent to state change in component.

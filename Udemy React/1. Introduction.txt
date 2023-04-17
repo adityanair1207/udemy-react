@@ -1,0 +1,14 @@
+> Traditionally, when a request was sent to a server, an entire html page was returned as response while we wait for it to load. Thus there is large latency.
+> JS is used to manipulate the HTML structure (DOM - Document Object Model) of the page without fetching a new HTML page.
+> React JS is a client-side JS library that helps us write client-side JS code to build modern, reactive UIs for websites.
+
+-> Why use React JS?
+> Using plain means we have to write every single instruction step by step. This is called imperitive approach.
+> Using React, we can use custom HTML components.
+> Every component is a building block and has a clear task. Thus code is managable. React will handle combining everything on the screen and rendering something.
+> Low level tasks like creating elements and setting text content will not have to be written by us instead it will be written by the React library. We work at a higher level i.e., in a declarative, component-focused approach.
+
+-> Single-Page-Applications (SPAs)
+> Because of React's component-focused approach, it is often used to build SPAs.
+> React can be used to control parts of HTML pages or entire pages.
+> JS is used through React to change what is visible on the screen. A request is not made to get a new HTML page. This leads to a smoother UI and better UX.

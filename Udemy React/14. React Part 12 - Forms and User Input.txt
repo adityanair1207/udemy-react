@@ -1,0 +1,20 @@
+-> Validation:
+> There are three approaches to validation:
+1. When form is submitted.
+2. When an input field is losing focus.
+3. On every keystroke.
+> Each approach has its advantages and disadvantages. We should use a combination to come up with an ideal validation.
+> First let us look at SimpleInput.js
+> There are two ways to fetch a user input:
+1. Listen on every keystroke and store in some state.
+2. Use ref to fetch the entire input field value once user is done entering.
+
+Note: Client side validation is good for UX but server side validation should also be done as client side HTML can be modified.
+
+> Instead of using enteredNameIsValid as a state, we can depend on enteredName state to set enteredNameIsValid thus reducing a state and making our code shorter and more readable.
+> Now we have properly managed the validation for one input. But a foem will have multiple inputs. Thus, we need to check overall form validity.
+> A form is invalid if even a single input is invalid. We will use another state for form validity.
+
+> We can see that for input fields the logic is repeated. So we should go for a custom hook.
+
+> For practice, we can use useReducer hook inside our custom hook.

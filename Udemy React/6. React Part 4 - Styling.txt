@@ -1,0 +1,21 @@
+> Styling components:
+> Currently the css is not scoped to a particular component and can be used anywhere.
+
+> A new goal can be created even if nothing is entered. This should not be the case. We need dynamic styling to inform the user that empty goal cannot be added. We will use State for this in CourseInput.js
+</div>style={{ color: isValid ? "black" : "red" }}
+
+> Inline styles have highest priority. They override all other styles. So this approach is not the best. Dynamic styles is the alternative.
+> Add it to the css file of the component.
+> Enter className using {} and bactics `` for dynamic value.
+
+> To make css scoped to a component, there are 2 ways:
+1. style-components.com
+> npm install --save styled-components
+> styled-components has methods for all HTML elements that returns the element itself and css can be applied between `` as argument of the method. Selectors need to be removed from the css and & can be used.
+> Props are automatically added.
+> Styling is now scoped to the Button component.
+> Similarly for CourseInput form.
+
+2. css modules (good way)
+> import styles from "./Button.module.css";
+> Rename .css file to .module.css

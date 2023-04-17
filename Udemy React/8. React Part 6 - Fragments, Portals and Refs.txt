@@ -1,0 +1,29 @@
+-> Fragments:
+> JSX has a limitation, adjacent elements cannot be returned by a component.
+> To solve this, we can wrap adjacent elements in another element like div.
+> This leads to another problem, a "div soup" with too many divs nested inside one another. Thus, this solution is not ideal.
+> A trick is to use a Wrapper component which is actually an empty component.
+> Instead of doing this manually, we can use the in-built: <React.Fragment></React.Fragment> (always works) which can also be used as: <></>.
+
+-> Portals:
+> Used to bring modals to the top of transformed HTML code instead of nesting it deep which is not considered good practice.
+> Portals need 2 things:
+1. Place you want to portal to and
+Go to public>index.html and add div/s with ids.
+2. Let the component know that it should portal to that place.
+Use createPortal method. This method takes 2 parameters, first the element you want to portal and second the document.getElementById("id of div in index.html")
+
+-> Refs:
+> Simply, refs allow us to get access to other DOM elements and work with them.
+> For example, in the form, we track every keystoke the user enters when we only actually need the value entered in the form when submit button is clicked. Refs can help in such situations.
+> With refs, we can set up a connection between an html element which is being rendered in the end and our other javascript code.
+> For this we need useRef hook.
+> We can pass default value to initialize as argument. useRef returns a value that allows us to work with the html element we are going to connect it to. To do this connection go to the html element and add ref prop (similar to how we add key prop).
+> The first time the component is rendered, react will set the value of the ref as the default value provided as argument. The next time, ref will hold the native DOM element it is connected to.
+> The ref is always an object with a property "current" that holds among others the actual value of the element that ref is connected with. This value is always a string hence + is required to convert it to a number if required.
+> Using ref, we don't need to use State to track every keystoke to get the input entered. We directly have access to the element and can get the value when the submit button is clicked.
+> Using state or ref is a matter of preference and situation.
+> Using state is called Controller approach as react manages things.
+> Using ref to change input is called Uncontrolled approach.
+
+> ref prop cannot be added to custom components by default but it can be forwarded to the in-built HTML element inside to custom component. To do this, we need to wrap the custom component in React.forwardRef(props, ref). ref can now be forwarded inside the custom component where it is needed.

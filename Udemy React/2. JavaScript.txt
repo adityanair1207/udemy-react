@@ -1,0 +1,21 @@
+> var creates a variable in JS.
+> In ES6, let and const were introduced to create variables and are encouraged to be used.
+> let is the new var. Use const for constant value variables.
+
+> Arrow functions remove issues with "this" keyword.
+
+> export and import of modules.
+> When default keyword is used with export, when the file is imported, any name can be used to refer to that component. 
+> Otherwise only name of the component in the file can be used (named export). If you want to give a named export a different name, creare alias using "as" keyword.
+> import * as bundled(any name will do) to bundle components and use bundled. to access components.
+
+> JS also has classes, objects, "this" keyword, inheritance and super(). super() will be used to call parent class constructor.
+> In ES7, constructor doesn't have to me made. Property can be directly set. Also arrow functions are used instead of normal functions.
+
+> Spread and Rest Operators
+
+> Destructuring
+
+> Objects and arrays are reference types whereas int, string, boolean and value types.
+
+> Array method map(() => {}) is used to perform the operation given in the arrow function on every element of the array.

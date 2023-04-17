@@ -1,0 +1,29 @@
+> Browser-side/Client-side apps do not directly talk to databases. This is because databases credentials would be exposed in the browser.
+> Hence we need Back-end/Server-side apps running on another machine. This back-end app will communicate with the database as back-end code cannot be viewed by users.
+> Rest API (Application Programming Interface): Has URL/s using which requests are sent to access respective data.
+> Axios can be used in any JS library which makes sending Http requests and dealing with responses easy.
+> There is also a built-in mechanism for sending Http requests and dealing with responses from JS. This is the Fetch API. We will use this in the project.
+
+-> Sending a Get Request:
+> Default method of fetch will be Get.
+> Sending Http request is an asynchronous task. Response is not obtained immediately. Hence, fetch gets a promise as a response. If promise is fulfilled, the then() function is used. If there is any error, the catch() function is used.
+> The response can be used in the then function. This response is a json object with the required data. Use json() method to convert json to JS object. response.json() itself returns a promise.
+> Instead of repeated then(), async-await can be used.
+
+> When we click "Fetch Movies" we want to show a loading message while data is being fetched.
+
+-> Handling Http errors:
+> 200: Successful
+> 400: Request sent and response sent but response has some problems.
+> 500: Server errors
+> If using then, catch() can be used.
+> In async-await, try-catch is used.
+> fetch API does not throw errors for error status codes (Axios does throw errors for status codes). Error is thrown when some opeartion is done on the data which we did not get. So we want that a real error be thrown. We will have to do it manually.
+
+> We also want to data to be ready to display as soon as the page loads and not only send request after Fetch button is clicked.
+
+> We want to now be able to send post request. We will use Firebase for this. Firebase provides a full back-end for us to test our front-end.
+> Go to console>Create project>Realtime Database>Test mode
+
+> Id will be added automatically by Firebase for movie object.
+> Error handling can be added.

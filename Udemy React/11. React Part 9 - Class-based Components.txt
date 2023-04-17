@@ -1,0 +1,34 @@
+> JS has built-in support for classes.
+> constructor() method can be used for initialization.
+> render() method is used by react. React will call this method when it finds the respective component being used in JSX code.
+> render method is equivalent to the return block in functional components except return block needs to be there inside render method.
+> render method does not receive props by default.
+> The component class need to extend Component class which is defined by react. Component class gives important functionality like props and allows a class to be used as a component.
+> To use props, use this.props
+> In a single project, functional components can be used with class-based components.
+> Earlier state could only be managed with class-based components. Using hooks, state management was brought to functional components.
+
+-> State management:
+> To define state constructor is used. Constructor will be called whenever class is instantiated i.e., whenever the class is used as a component.
+> In class-based components, state is always an object whereas in functional components state can by anything (boolean, number, string, object).
+> Also, in class-based components all states need to be grouped into a single object.
+> To change state, this.setState is used which also works on an object. React merges the object in this.setState with the object in this.state. In functional components, the previous state is overwritten by default.
+> Similar to functional components, if a state update depends on a previous state, use function form.
+
+> In JS, "this" refers to whoever called a method that uses "this". To change this default behaviour, use bind() when referencing a function to an event.
+btn.addEventListener('click', this.addName.bind(this));
+bind() is a default JavaScript method which you can call on functions/ methods. It allows you to bind this inside of the "to-be-executed function/ method" to any value of your choice.
+In the above snippet, we bind this inside of addName to the same value this refers to in the constructor.
+In that constructor, this will refer to the class/ object because we execute that code on our own. The constructor essentially is always executed by the object itself you could say, hence this inside of the constructor also refers to that object.
+
+-> Class-based Component Lifecycle methods:
+> componentDidMount(): Called by react when the component is just mounted for the first time (when component was evaluated and rendered). Equivalent to useEffect(..., []).
+> componentDidUpdate(): Called once component is updated and re-rendered. Equivalent to useEffect(..., [some-dependencies]).
+> componentWillUnmount(): Called right before component is unmounted (removed from DOM). Equivalent to useEffect(() => {return() => {...}}, []) (Clean-up function in useEffect).
+
+-> Error Boundaries:
+> If there is an error in a component, but we want to handle it in a parent component, we cannot simply use try-catch in the JSX of parent component. We need to use Error Boundary in this case.
+> To do this, create an ErrorBoundary.js component and add componentDidCatch() lifeccycle method.
+> componentDidCatch lifeccycle method can be added to any class-based component and that component becomes an Error Boundary. There is no equivalent functionality for functional components.
+> componentDidCatch will be triggered whenever one of the child components throws/generates an error.
+> We want to wrap the ErrorBoundary component around components which should be protected by the Error Boundary.
