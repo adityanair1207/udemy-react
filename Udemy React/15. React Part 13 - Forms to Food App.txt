@@ -3,3 +3,6 @@
 > However, there is a problem. Function inside useEffect should not be asynchronous/should not return a promise. It should be synchronous. To use async-await inside useEffect, create a new function inside useEffect.
 
 > Now we need to handle a loading and error state for a better UX.
+> fetchmeals is an async function and hence always returns a promise. If an error is thrown inside a promise, the promise is rejected. Hence the promise goes to the catch function.
+
+> Now let us add a checkout form.

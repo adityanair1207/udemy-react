@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../UI/Card";
 import styles from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
@@ -13,6 +13,11 @@ const AvailableMeals = () => {
       const response = await fetch(
         "https://react-part10-http-requests-default-rtdb.firebaseio.com/meals.json"
       );
+
+      if(!response.ok){
+        throw new Error("Something went wrong.");
+      }
+
       const responseData = await response.json(); // responseData is JSON object containing meal JSON objects. We have to convert it to array of JSON objects
 
       const loadedMeals = [];
@@ -28,13 +33,32 @@ const AvailableMeals = () => {
       setIsLoading(false);
     };
 
-    fetchMeals();
+    // try{
+    // fetchMeals();}
+    // catch(error){
+    //   setIsLoading(false);
+    //   setHttpError(error.message);
+    // }
+
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
+
   }, []);
 
   if (isLoading) {
     return (
       <section className={styles.mealsLoading}>
         <p>Loading...</p>
+      </section>
+    );
+  }
+
+  if(httpError){
+    return (
+      <section className={styles.mealsError}>
+        <p>{httpError}</p>
       </section>
     );
   }
