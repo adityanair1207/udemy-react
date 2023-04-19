@@ -1,0 +1,67 @@
+> Redux is a state management system for cross-component or app-wide state.
+> Prop drilling can become cumbersome in cross-component or app-wide state management. Hence, we used Context previously. Redux is an alternative to Context as it has a few potential disadvantages. But both can be used.
+> Context can become complex and deeply-nested is large applications. Also, perfomance of Context is more suitable for low frequency updates.
+
+-> Core Redux Concepts:
+> Redux has one central data (state) store for all cross-component or app-wide data (state) in an application.
+> Data from the central store can be used by our components. To manage this, components setup subscriptions to the central store. Whenever data changes, the store notifies the components and then the components can get the data that they need and then use it.
+> Components never directly manipulate the store data. For this Reducers are used. Reducer Function is used for changing store data.
+> Components dispatch actions. Action is a JS object that describes the kind of operation the Reducer should perform. Redux forwards the actions to the Reducer Function. The Reducer reads the actions and perfoms action. Reducer spits out a new state which replaces the existing state in the central data store.
+> When the state in the data store is updated, subscribing components are notified so that they can update their UI.
+
+> Create an empty folder. Navigate to it in the cmd. Run npm init -y. Now we can install 3rd party packages. Run npm install redux. Now we can use redux.
+> Let us start with creating the data store.
+> The job of the Reducer is to spit out a new state snapshot whenever an action reaches it. When the code is run for the first time, the Reducer will also be executed with a default action that should spit out the initial state.
+> Next let us add a Reducer function. A Reducer Function is a standard JS function but it will be called by the Redux library and it will receive two parameters: old state, dispatched action. Now the Reducer Function must return a new state object which will replace the existing state.
+> Reducer Function should be a pure function (same output for same input) and there should be no side effects inside the function.
+> The store should have a reference to the Reducer Function so that it knows which Reducer is responsible for changing that store.
+> Now we need something to subscribe to the store and an action that can be dispatched.
+> getState() method will give us the latest store state snapshot after it was changed.
+> Now we need to make redux aware of the subscriber function and tell it that it should be executed whenever our state changes. This is done using the subscribe() method.
+> Note: Both the Reducer Function and the Subscriber function will be executed by redux.
+> In the Reducer Function, the state parameter needs to have a default value for when it runs for the first time otherwise the state is initially undefined.
+> Now we need to dispatch an action. This is done using dispatch() method. An action is a JS object with a type property.
+
+> Start with new react app. npm install redux react-redux.
+> Create a new store folder in src. Redux related files will be kept here.
+> Create index.js inside which redux logic will be put.
+> We now have to connect our react app to the redux store so that the components of the app can dispatch actions and listen to changes. Therefore, export the store. Now we have to provide the store to the react app.
+> Go to index.js of src and wrap App component with Provider. It is also possible to wrap any nested component with Provider. However, only that component and all its child components will have access to the redux store. So if vast majority of components require the redux store, wrap the App component with Provider.
+> Next we have to tell react which store we want to provide. Add it to store prop of Provider.
+> Now all components of the app can set up subscription to the store and dispatch actions and listen for changes.
+> Suppose we want to utilize the store state in Counter component. We will use useSelector hook which is a react-redux hook. useStore gives us direct access to the store. useSelector is more conveinient because it allows us to select a part of the state managed by store.
+> We need to pass a function to useSelector. This function will be executed by react-redux and will determine which piece of data we want to retreive from the store. The function will receive the state managed by redux and return part of the state which we want to extract (counter). This process will be managed by redux.
+> Another advantage of useSelector is that it automatically set up subscription to the redux store for the component where it is used. So the component will be updated and will receive the latest counter automatically whenever the counter changes in the redux store. Also, if the component is unmounted from the DOM, react-redux will automatically clear the subscription.
+> To dispatch an action from a component, we will use useDispatch hook. We don't pass any argument to it. useDispatch gives us a function which we can then execute inside the component.
+
+-> Redux with class-based components:
+> We will use connect() function from react-redux instead of useSelector, useDispatch hooks. connect() when executed will return a new function. Counter should be passed as argument of that function in the export statement. connect() itself requires two arguments which are both functions. The first function maps redux state to props which will be received in the component (similar to useSelector). The second function stores dispatch functions in props which will be received in the component (similar to useDispatch).
+> When using connect, react-redux will still setup a subscription and manage it for us. Similar to useSelector sets up subscription.
+
+-> Attaching payloads to actions: (Action Payload)
+> Often we want to dispatch actions that carry additional data.
+
+> Reducer spits out a new state which replaces the existing state in the central data store. Because of this all states and their values must be specified in the return statement of Reducer.
+> You should naver change an existing state in Redux. Always overwrite it by returning a new state object.
+
+-> Challenges in Redux:
+> Accidental incorrect action type entered.
+> State object can get big in big projects.
+> Redux Toolkit solves these problems. npm install @reduxjs/toolkit
+
+-> Redux Toolkit:
+> To use it, import createSlice()
+> createSlice() requires an object as an argument. We want a "slice" of the global state when we have different unrelated states to group together states that we require.
+> Every slice requires a name i.e., an identifier of that piece of state.
+> Add methods that the slice requires in reducers. Each method will automatically receive the latest state snapshot.
+> Inside slice changing of state is allowed as Redux Toolkit internally handles it.
+> createStore can only take in the reducers from a single slice. In large projects, there are multiple slices with their own reducers. To solve this we can use configureStore() function.
+> configureStore() is like createStore() but it makes merging multiple reducers into a single reducer easier.
+> configureStore() requires configuration object as argument. The configuration object has reducer property where we can add reducers from multiple slices as required.
+> For dispatching actions, createSlice() automatically creates unique action identifiers for the reducers. To get the action identifiers, use actions object which is full of keys, where the key names match the method names of reducers.
+> When any key is called, Redux will automatically create an action object for us corresponding to the method in reducers. These action objects will already have a type property with a unique identifier per action.
+> By exporting the actions object, we can dispatch actions from any component where it has been imported.
+
+> Working with multiple slices in an app.
+
+> In large projects with multiples slices, the Redux store file (index.js) can become lengthy. So it makes sense to split the file into pieces. It also makes sense to put each slice into its own file.
