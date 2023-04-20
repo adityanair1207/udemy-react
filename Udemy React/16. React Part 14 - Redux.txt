@@ -65,3 +65,40 @@
 > Working with multiple slices in an app.
 
 > In large projects with multiples slices, the Redux store file (index.js) can become lengthy. So it makes sense to split the file into pieces. It also makes sense to put each slice into its own file.
+
+
+-> Advanced Redux:
+> As mentioned before, Reducer Function must be pure, side-effect free and synchronous. Also, for the same input, the output must be the same.
+> So then, if dispatching an action that involves a side-effect like http request, where should that code be put when working with Redux.
+> There are two possible places where we can put side-effects:
+1. Directly into the component with useEffect and dispatch action only when side-effect is done so that Redux doesn't know anything about the side-effect.
+2. We write our own action creator functions instead of the automatically generated ones by redux toolkit. For the action creators, redux actually has a solution that allows us to perform side-effect and run async tasks as part of these action creators without changing the Reducer Function.
+
+> Note: npm install react-redux @reduxjs/toolkit
+> We want one slice for managing the cart and one slice for UI logic: toggling the cart.
+> Inside createSlice(), reducers is the key to the map of the methods that represent all the different cases/actions we want to handle with the reducer.
+
+> Now we will store the cart data in backend firebase. So we will have to async code in our redux project. Async/side-effect code cannot be put in Reducer Function.
+> The async code can be put in 1) the components itself or 2) use action creators which we have only used indirectly so far.
+> In out project, firebase has no backend logic to detect previously added cart items. It just stores the data as is. So we will have to add more code to our front-end to transform that data to be properly stored on firebase.
+> Note: If you have synchronous, side-effect free code i.e., data transformations, prefer Reducers and avoid action creators or components. If ypu have async/side-effect code prefer action creators or components and never use Reducers.
+
+> Since we want to add async code, first we will add it to our App component. This could be done in any component. We will use useEffect hook here to add cart item to firebase as a side-effect.
+> One problem of useEffect that we need to fix is that it will execute when our app starts. This will send the initial (i.e. empty) cart to our backend and overwrite any data stored there.
+> We also need to handle the response from the http request and potential errors. Notification component will be used for this. Let the notification state be managed in ui-slice.
+
+> Now instead of putting side-effect in component, we will use Action Creator. So far we have been using the automatically created Action Creators to dispatch actions. We will be writing our own Action Creators to create "Thunks".
+> A Thunk is a function that delays an action until later. We could write an Action Creator as a Thunk, to get an Action Creator that does not immediately return an Action object but which instead returns another function which eventually returns the action object so that we can run some other code before we then dispatch the actual action object that we did want to create.
+> We will take the code for sending cart data out of the App component and put it in an Action Creator (that we will write) inside cart-slice.
+> When react-redux sees that a Thunk has been passed as argument to dispatch instead of an Action Creator, react-redux will execute the function returned by the Thunk for us and provide the dispatch argument automatically. On executing this function, the actual Action Creator is dispatched.
+> This helps us create a flow of steps if we want Action Creators that can perform side-effects and that can then dispatch other actions which eventually reach the reducers.
+> Our ccomponent code is leaner here.
+
+> Note: If you're using await to handle the Promise then you wrap it in a try/catch. Think of await as a way to make asynchronous operations semantically similar to synchronous operations.
+But if you're not using await and are instead handling the Promise by appending .then() to it then you'd append a .catch() to that chain to catch failures from within the asynchronous operation.
+Because a try/catch isn't going to catch an exception that happens from within the asynchronous operation if that operation isn't awaited.
+
+> Let us now build another Action Creator which fetches the cart data when the app loads.
+> When the data is received from firebase, it is sent back bacause the cart dependency in useEffect changes and triggers sending the cart data back thereby showing the sent data notification.
+
+> Redux Devtools makes it easier to debug redux apps.
