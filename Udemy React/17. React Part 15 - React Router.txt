@@ -1,0 +1,115 @@
+> So far everything has been happening on a single page. The URL has always been localhost:3000.
+> We now want that a user should be able to navigate to a certain part of the website using the URL i.e we want to be able to link different parts of the website using the URL.
+> So basically we want multiple pages in our Single Page Application (SPA).
+
+-> Routing:
+> When you visit websites, a path is appended after the domain name for different pages of the website. 
+> Typically, without react different HTML files are used for each page of the website. The disadvantage of this is that we have to keep fetching new content. A new HTTP request is sent and a response is received. This is inefficient and can lead to lags in the UX.
+> Because react allows us to make SPAs, only one initial HTML request and response is needed along with the additonal JS. The JS will handle what is seen on the screen on the client-side itself and there is no need to communicate with the server.
+> We want to add react code that watches the URL and changes what is displayed based on the URL without fetching a new HTML file.
+
+> New project. npm install react-router-dom
+1. We must first define the routes/paths/URLs we want to support and which components should be loaded for different paths. Import createBrowserRouter function.
+2. The second step is to activate the router and load the route definitions that we defined. Import RouterProvider component.
+3. The third step is to have all the components that we want to load and provide some means of navigating between the pages.
+
+> Alternatively, createRoutesFromElements function and Route component can be used to define the path in JSX code.
+
+> Directly adding href to another path inside a component leads to an http request being sent and response being received (which contains the html file along with JS which we already have) thus reloading the entire application. We don't want this. The JS code should handle routing without sending a new http request.
+> To to this, import Link component into the component where you want to provide the path for another page and use it instead of anchor tag. Link internally uses anchor tag.
+
+Note: Entering URL into the address bar directly always leads to sending an http request. react-router changes the URL without sending an http request.
+
+> To use Link in a component, the component must be a part of createBrowserRouter() and hence RouterProvider.
+
+> Navigation:
+>To create a nav-bar, we should create a layout component that wraps all the routes and loads the component based on the URL.
+> Start by adding an layout route to the route definitions. Add the rest of the nav elements in the children prop of this layout route.
+> Inside the layout component, import Outlet component. Outlet marks the place where the child route elements should be rendered to.
+> We can have multiple root layouts with their own paths.
+
+> We now have to provide a proper error page if the user tries to go on a path that doesn't exist. After creating the error page, add it to the errorElement prop of RootLayout. Now if we enter a URL whose path is not defined, we get the error page.
+
+> Now we want to highlight the page we are currently on in the nav-bar. So instead of Link, we can use NavLink.
+> NavLink's className takes a function that should return the css class name that should be added to the anchor tag. The function also automatically recives an object from which we can destructure the isActive property. isActive is a boolean which is true when the link is active. This function is also available for inline style.
+
+> Navigating programatically:
+> Sometimes, after some task like form submission or expiration of a timer, we may want to navigate to a particular page. We can use the useNavigate hook for this.
+
+> On Products page, we should have a list of products and a separate details page for each product. It is not realistic to add a separate path for each product in the route definition. So for this, we have dynamic path parameters. The : signals to react-router-dom that the part after the : is dynamic.
+> To get the dynamic value in the ProductDetail component for fetching data of the different products from a back-end, we use the useParams hook. This hook contains every dynamic path segment which we defined in the route definition as a property.
+
+> Absolute and Relative Paths:
+> In our path definitions, if the path starts with /, it is an a absolute path i.e the path starts immediately after the domain name.
+> If we remove the leading / in the child routes, they become relative paths i.e the paths are appended after the parent wrapper route.
+> Changing all paths in project to relative.
+> In Link component, there is a relative prop which can be set to path or route. If set to path, the segment in to is appended to the current URL path. If set to route (default), the segment in to is appended to current active route. They after often the same.
+> Instead of leaving the path to the home page "", we can instead use the index prop and set it to true to set the default route.
+
+-> Data Fetching with loader():
+> It would be good if react-router could begin fetching data from the back-end even before we navigate to the page where the data is required. The page will only load once the data has been fetched so the user always sees the page with the data. However, if the data fetching takes time, the application will appear unresponsive after the user clicks on a page where data is being fetched, so we need to let the user know that data is loading. This will be done later.
+> We don't have to write long code for fetching data from a back-end. Instead, add loader prop to the route definition of the component where data fetching is to be done.
+> loader is a prop that wants a function as a value. This function will be executed by react-router whenever we are about to visit that route. So just before the route component is rendered. We can fetch data inside the loader function.
+> react-router will take any value that is returned from the loader function, and make it available in the route component as well as any other components where the data is needed.
+> To access the data returned by the loader, go to the component where you want the data and import useLoaderData hook. Since the loader function is async, it returns a promise. react-router will check if a promise is returned and automatically give us the result data in the component where useLoaderData hook is used.
+> We cannot get loader data in a higher level component like RootLayout.
+> Optionally the loader code can be kept out of App.js and inside the component where it is required.
+
+> react-router has the useNavigation hook that we can use to check the current route transition state. It is either idle, loading or submitting. Note: the loading indicator is not shown on the page that is loading but on the currently visible page.
+
+> Anything can be returned by the loader including response object even though it is front-end code. react-router will automatically extract the data from the response object when using useLoaderData. So the response can directly be returned instead of converting the response object using json().
+
+> Error handling: When an error is thrown in a loader, react-router will render the closest error element.
+> We want to provide additional information when error is thrown.
+> To differentiate between errors, we can throw a Response instead of an error object. Using Response, we can get the error code as well.
+> We can catch this error using useRouteError hook. useRouteError can be used for any error but for Response, it can capture the error status code as well.
+> Throwing error in the form of Response can be annoying to type. react-router provides the json() utility function to make this easy.
+> json() creates a Response object that includes data in the json format. Simply pass data to the json() function. We also don't have to parse the json data.
+
+> We want to go a valid page when we click on an event. We want to navigate to the EventDetailsPage.
+> We have to add loader() inside to get the data of a particular event.
+> We can get the the ID of the event via route parameters in the loader function because react-router, which calls the loader function passes an object to the loader function when executing. The object contains a request property which contains a Request object and a params property which contains an object with all route parameters (like useParams()).
+> The Request object can be used to extract query parameters. We don't need it here.
+> We have to register the loader we used in the route definitions.
+
+> Both EventDetailsPage and EditEventPage require data. But we don't have to repeat the loader() code in both. Instead we simply create a new route definition without any associated element, add elements that require common loader data as children and add a common loader definition for the children routes.
+> When we do this we get an error. This is because by default when we use useLoaderData, it searches for the closest available loader data and the highest level at which it looks for data is the route definition of the route for which the component, where useLoaderData is used, is loaded.
+> To make sure the route component uses the loader data of the parent route we need to add an id property to the parent route with the value as a name of your choice. And then instead of using the useLoaderData hook in the components we have to use useRouteLoaderData hook. This hook takes the route id as an argument.
+
+> We now want to send data to the back-end to add a new event or edit an existing event. react-router provides a way for this. Just as we can use loader to load data, we can use action to send data.
+> To add an action to a route, we use the action prop. Just like loader, action wants a function. We don't want to add the function in the route definitions file, instead just like loader, we will create the function in the file where it is needed and add a reference to the function in the route definition prop.
+> Make sure the inputs in the form have the name attribute as the names will be used for extracting the data. The form element should be replaced with Form component. This will make sure that the browser default of sending a request to the back-end is omitted, but it will take the request and give it to the action function of the currently active route.
+> Set the method property in Form to "post". Note: The request will not be sent to the back-end but to the action and it will include all the form data.
+> To get the request in action, the action function receives an object as parameter that includes request and params just like loader. This time we are interested in request property. To get the form data, we have to apply formData() method on the request object. On the data, we can use the get() method, and pass the name of the fields as argument to get access to the different input field values.
+
+https://thumbs.dreamstime.com/z/beautiful-rain-forest-ang-ka-nature-trail-doi-inthanon-national-park-thailand-36703721.jpg
+
+> We have not mentioned what to do after the form is submitted. We want to redirect to another page. To do this, we can use redirect function of react-router.
+> Like json(), redirect() creates a response object. We have to only mention the route which we want to redirect to.
+
+> We have seen the typical way to submit forms in react-router. To send the request to a different route, we can specify the different route in action prop of Form component.
+> If we want to trigger an action and submit data programatically (without using Form component) we can use the useSubmit() hook.
+> This hook gives you a submit function to which we can pass two arguments. The first argument is the data we want to submit which will automatically be wrapped in the formData object. We can set it to null as we don't need any data. The second argument is used to configure the submission.
+
+> After form submission, we would like the user to know that the form is being submitted and disable the save button while the data is being submitted. We can do this using useNavigation hook. useNavigation hook can be used to identify the current route transition state and also the state of data submission.
+
+> Using action, we can easily show the server-side validation error on the client-side. We can use returned action data in our pages and components just like loader. This is done using useActionData hook. useActionData gives us action data from the closest action.
+
+> We want to reuse the action used for creating a new event for editing an existing event.
+
+> Extra features of react-router:
+1. useFetcher()
+> Since NewsletterSignup has been added to the nav-bar and hence is included on all routes. When action is triggered, it redirects to the page where action belongs. To solve this, we can use the useFetcher hook which will trigger an action but prevent any route changes.
+> useFetcher should be used if you want to trigger a loader or an action without loading the page to which the loader or action belongs. We only want the loader or action to perform its task behind-the-scenes.
+> We can get feedback of the submission using other properties of fetcher like data, state etc. The state you get from fetcher tells you whether the fetcher behind-the-scenes completed its loader or action that was triggered.
+2. defer()
+> Suppose we want to see the Events page before it has fully loaded. Here we can defer loading as we want to render a component even though its data has not yet fully loaded.
+> We can do this by putting the body of the loader function in a separate async function and making the loader synchronous. We then use the defer() function inside the loader. To defer() we pass an object which contains all the http requests we have on the page (in this case, the request for all the Events). The loader now returns this deferred data.
+> In the component where we want to use the deferred data, the useLoaderData will return an object with the deferred value key/s (events).
+> We don't directly render the JSX code that needs the deferred data, instead we return another component provided by react-router-dom, the Await component. Await component has a resolve prop which wants one of our deferred values as a value.
+> The Await component will wait for the data to load. Between the opening and closing tags, we output a dynamic value which must be a function that will be executed by react-router once the data is available.
+> The Await component must be wrapped by react's Suspense component. The Suspense component can be used to show a fallback while we wait for other data to arrive.
+> The the response returned by the async function will not be automatically parsed as it is no longer inside the loader function. Therefore, we have to manually parse it.
+> To demonstrate defer(), in EventDetailsPage, we will display EventsList as well.
+> Using differ, we can load the data which is available while still waiting for other data. We have put a 2 second timer on loading the events list. So the single event will load first.
+> To make react-router-dom to wait for any part of deferred data before loading page, simply add await before it in the defer() object.
