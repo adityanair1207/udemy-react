@@ -1,0 +1,48 @@
+> There are two ways to perform user authentication:
+1. Server-side: Popularly used in full-stack applications where the front-end and back-end are not decoupled. Not ideal for react. Store unique identifier on server, send same identifier to client. Client sends identifier along with requests to get access to protected resources.
+2. Authentication Tokens: Used where back-end is decoupled. Used with react front-end. Create (but not store) "permission" token on server and send token to client. Client sends token along with requests to access protected resources. Server checks the token, check if it was created by the back-end and checks its validity.
+
+> We want to send different requests for authentication based on what form is displayed (register or login).
+> Currently we are using useState to toggle between the two forms. We could alternatively use a standard web concept called query/search parameters.
+> A query parameter is appended in the URL after a question mark. We could support a mode query parameter which can switch between login and signup and depending on this, the respective form is shown.
+> The advantage of this is that we can directly link to the authentication page in login or signup mode based on requirement.
+> To get access to query parameter, we can use useSearchParams hook. It returns an array with two elements. The first is an object which gives us access to currently set search parameters. The second is a function which allows us to update the currently set search parameters (we don't need it here).
+> Applying get method on the search parameter object, we can access a specific query parameter by name.
+> We can also set the default page to login in the nav-bar.
+
+> On the back-end, there is a /signup route which we have to use to create a new user.
+> We now have to create an action which should be triggered when the authentication form is submitted. For this the action should be on the same path (or closest action) as the Form component. So we will create the action in Authentication.js
+> This action will handle both login and signup.
+> We also need to provide the search parameter to the action depending on which login or signup request will be sent. Since we are not in a component we cannot use useSearchParams. We can use the built-in URL() constructor to access the search parameters on the URL object.
+> json() function throws response and renders nearest Error element on the screen.
+> If there are no error after sending request with authentication data, we will receive a token from the back-end that we need to manage.
+> Once signed in/logged in the user is redirected to the home page using redirect() function.
+> The action needs to be added to route definition.
+
+> We now need to show validation and other errors to the user. The response sent by the back-end has a message property and errors object.
+> We now want to add an indicator to the save button to show that the form is being submitted and we are waiting for response. For this we will use useNavigation hook.
+
+> Now we need to handle the authentication token. As of now, we are not authorized to do anything because we haven't added the authentication token to the outgoing request.
+> We first need to store the token on getting it from the back-end after signing up or logging in.
+> We get the token in the response object with the token key. We can store it in local storage.
+
+> Create a new util folder, add auth.js file and add function to return token from local storage.
+> In EventDetail.js, in the delete action we will have to add the token to the outgoing request under headers.
+> We can now delete an event.
+> Similary add the Authorization key to the headers for adding and editing action function.
+
+> We now want to edit the UI based on the authentication status.
+> If we are logged in, we don't want to show the Authentication page. If we are not logged in, we don't want to show the New Event, Edit and Delete event. We also need a way to get rid of the token and logout.
+
+> For logout, add a button to the nav-bar and create a Logout.js page and create an action that will clear the local storage.
+> Add the logout route with action on route definitions in App.js and wrap the logout button in Form component so that the action is triggered when the button is clicked.
+
+> We want to make the UI responsive to the existance of a token. To do this we can add a loader to the root route which checks for the existance of token in the local storage, extract it if it is and make it available on all routes. To make using it easy, we can use an id for the loader.
+> react-router will automatically re-evaluate the token data whenever a new navigation action occurs. So the token data will always be up-to-date for all components.
+> The loader function is written in util/auth.js
+
+> Even now the pages can be viewed by directly entering route in address bar. So we need to protect certain routes. For this we can use a loader. A loader which simply checks whether we have a token. This function will also be added to the auth.js file.
+
+> The back-end creates a token that will expire in 1 hour (can be changed in back-end). So we want to log the user out after 1 hour, clear the token and update the UI.
+> Can be done using useEffect inside Root.js by setting a timer to 1 hour and submitting the logout action form using useSubmit hook of react-router.
+> But this way has a flaw, the timer restarts when the app is reloaded. So we should store the expiration time when the token is created in Authentication.js
