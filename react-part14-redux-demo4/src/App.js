@@ -6,15 +6,15 @@ import { useSelector } from "react-redux";
 import UserProfile from "./components/UserProfile";
 
 function App() {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated); // state refers to the store state which is automatically passed to useSelector by reduxs
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // state refers to the global store state which is automatically passed to useSelector by redux
 
   return (
-  <>
-    <Header/>
-    {!isAuthenticated && <Auth/>}
-    {isAuthenticated && <UserProfile/>}
-    <Counter/>
-  </>
+    <>
+      <Header />
+      {!isAuthenticated && <Auth />}
+      {isAuthenticated && <UserProfile />}
+      <Counter />
+    </>
   );
 }
 

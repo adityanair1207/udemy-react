@@ -1,0 +1,11 @@
+> If we want to reduce dependencies in our app, we can replace Redux with React hooks.
+> The demo app has been made using redux.
+
+-> Replacing with Context API:
+> Create a products-context.js file. Add the products as a state using useState. Pass the state to the Context Provider so that whenever the state changes, all components under Provides will have access to the updated state.
+
+> The problem in this approach is that Context is only suitable for low frequency updates.
+
+-> The alternative is to use a custom hook as a global store (useStore). This custom hook will have common global variables.
+> Inside this custom hook, we will use useEffect which will add a setState function to the listener array when a component mounts and remove the setState function from the listener array when the component unmounts.
+> Next we want to be able to dispatch actions. (Similar to redux)
