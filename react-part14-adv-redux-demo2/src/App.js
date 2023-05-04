@@ -64,7 +64,7 @@ function App() {
         })
       );
     }); // since sendCartData is async, it returns a promise. If error is thrown, it will go in catch()
-  }, [cart, dispatch]); // now the effect will be executed whenever the cart changes and the cart will be updated by useSelector which sets up subscription to the redux store.
+  }, [cart, dispatch]); // the effect will be executed whenever the cart changes and the cart will be updated by useSelector which sets up subscription to the redux store.
 
   return (
     <>
