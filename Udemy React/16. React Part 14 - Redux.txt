@@ -29,7 +29,7 @@
 > Go to index.js of src and wrap App component with Provider. It is also possible to wrap any nested component with Provider. However, only that component and all its child components will have access to the redux store. So if vast majority of components require the redux store, wrap the App component with Provider.
 > Next we have to tell react which store we want to provide. Add it to store prop of Provider.
 > Now all components of the app can set up subscription to the store and dispatch actions and listen for changes.
-> Suppose we want to utilize the store state in Counter component. We will use useSelector hook which is a react-redux hook. useStore gives us direct access to the store. useSelector is more conveinient because it allows us to select a part of the state managed by store.
+> Suppose we want to utilize the store state in Counter component. We will use useSelector hook which is a react-redux hook. useStore gives us direct access to the store. useSelector is more convienient because it allows us to select a part of the state managed by store.
 > We need to pass a function to useSelector. This function will be executed by react-redux and will determine which piece of data we want to retreive from the store. The function will receive the state managed by redux and return part of the state which we want to extract (counter). This process will be managed by redux.
 > Another advantage of useSelector is that it automatically set up subscription to the redux store for the component where it is used. So the component will be updated and will receive the latest counter automatically whenever the counter changes in the redux store. Also, if the component is unmounted from the DOM, react-redux will automatically clear the subscription.
 > To dispatch an action from a component, we will use useDispatch hook. We don't pass any argument to it. useDispatch gives us a function which we can then execute inside the component.
@@ -47,7 +47,7 @@
 -> Challenges in Redux:
 > Accidental incorrect action type entered.
 > State object can get big in big projects.
-> Redux Toolkit solves these problems. npm install @reduxjs/toolkit
+> Redux Toolkit solves these problems. npm install react-redux @reduxjs/toolkit
 
 -> Redux Toolkit:
 > To use it, import createSlice()
@@ -72,7 +72,7 @@
 > So then, if dispatching an action that involves a side-effect like http request, where should that code be put when working with Redux.
 > There are two possible places where we can put side-effects:
 1. Directly into the component with useEffect and dispatch action only when side-effect is done so that Redux doesn't know anything about the side-effect.
-2. We write our own action creator functions instead of the automatically generated ones by redux toolkit. For the action creators, redux actually has a solution that allows us to perform side-effect and run async tasks as part of these action creators without changing the Reducer Function.
+2. We write our own action creator functions instead of the automatically generated ones by redux toolkit. For the action creators, redux actually has a solution that allows us to perform side-effects and run async tasks as part of these action creators without changing the Reducer Function.
 
 > Note: npm install react-redux @reduxjs/toolkit
 > We want one slice for managing the cart and one slice for UI logic: toggling the cart.
