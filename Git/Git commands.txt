@@ -1,0 +1,119 @@
+> Directory means folder on local machine.
+> cd - Change Directory.
+> Repository - Folder/place where project is kept.
+> Git - Tool that tracks changes in code over time.
+> Github - Website to host repositories online.
+
+-> Git Commands:
+> clone: Bring a repo hosted somewhere like Github into a folder on the local machine.
+> add: Track files and changes in Git.
+> commit: Save changes made to code files in Git.
+> push: Upload Git commits to a remote repo like Github.
+> pull: Download changes from remote repo to local machine, opposite of push.
+
+-> Github:
+> Go to Github>create new repo>demo-repo>create repo.
+> Click on creating a new file>README.md (mark down).
+# Use hash for header of file.
+
+Some description
+> If nothing is enter in Commit new file textblock, Create README.md is used as commit message. Update README.md is used by default on making some changes.
+> History of commits with unique identifier is visible on clicking commits.
+> Colourless is for unchanged code, green is for new additions, red is for deleted code.
+
+-> VSCode:
+> We want to clone the repo we created on Github to our local machine.
+> Open an empty folder.
+> Open terminal in VSCode. Change it to Git Bash.
+> Go to repo on Github>Code>copy HTTPS link.
+> In terminal enter command
+$ git clone HTTPS link
+$ git clone --branch <branchname> HTTPS link (to clone a specific branch)
+> Hit enter. Repo is now on the local machine.
+> Go inside folder through terminal
+$ cd demo-repo
+> To view all files including hidden folders
+$ ls -la
+> We can see a .git folder (blue) which is hidden. This folder stores all files that save the git changes in this repo including changes made on Github.
+> Make changes locally. Since change is made, we need to save changes in Git. View status of Git using
+$ git status
+> On adding a new file to local repo, it's status is untracked i.e., Git does not know the file exists. So first we have to tell Git to track this file before saving to Git. For this
+$ git add filename
+$ git add . (to track all files)
+> The files are now ready to be commited.
+$ git commit -m "Message for title (compulsary)" -m "Message in description box"
+> The code has been stored locally.
+
+(Not needed)
+>Now we have to connect our local machine to our Github account using ssh keys in Git bash.
+ssh-keygen -t rsa -b 4096 -C "adityanair1207@gmail.com"
+testkey
+> The key has been generated. To find the key
+ls | grep testkey
+> We can see testkey (private key, only for you) and testkey.pub (pub means public). testkey.pub will be uploaded to Github interface. Private key proves that you are the owner. Only private key can generate the public key.
+cat testkey.pub
+> Copy the contents>Go to Github>Setting>SSH and GPG keys>New SSH key>any title>paste key
+
+git push origin main
+> origin stands for location of git repo. main is the branch we want to push to.
+
+> Starting a repo locally first. demo-repo2
+> Navigate to the folder in terminal.
+$ git init
+> The folder is now a Git repo.
+$ git status
+$ git add .
+$ git commit -m "First commit of demo-repo2"
+> git push does not work because git does not know where to push the local repo.
+> Go to Github>Create new repo
+$ git remote add origin https://github.com/adityanair1207/demo-repo2.git
+$ git branch -M main
+$ git push -u origin main (to set origin main as default. git push is now sufficient)
+
+-> pull request:
+> If you don't have access rights or want a code review, do a pull request before merging changes.
+
+-> Git Branching:
+> Main is the default branch in a repo.
+> When a new branch is created called Feature branch, initally the code on Main branch and Feature are the same. But when changes are made to Feature branch, changes are seen only in Feature branch and vice-versa for Main branch. Each branch works independent of other branches.
+> To see all branches
+$ git branch
+> We can see that there is only main branch. * indicates that we are currently on that branch. To create a new branch
+$ git checkout -b branch-name
+> To go back to main branch
+$ git checkout main
+> Go back to branch. Make changes to file. Add and commit. It is only committed on the branch. Go to main branch. We can see no changes. To view difference between main and branch
+$ git diff branch-name
+> To merge branch with main
+$ git merge branch-name (not usually done)
+> What is usually done is, the branch is pushed to Github and a pull request is made.
+$ git checkout branch-name
+$ git push origin branch-name
+> A pull request is a request to pull code from a branch into another branch. After a pr is made, changes can be suggested which we can made by us in the branch and added, committed and pushed again as another pr. Once the branche is merged with main, the branch is usually deleted.
+> Click compare and pull request. Have conversations with leader.
+> Merge. The branches have been merged.
+> But in our local code, main branch is still the same. We need to pull the changes on the local system.
+$ git pull origin main
+> Delete branch
+$ git branch -d branch-name
+
+> To get changes from main to branch
+$ git checkout branch-name
+$ git merge main
+> To unstage a file after add
+$ git reset
+> To uncommit a file just previously committed
+$ git reset HEAD~1
+> To view all commits
+$ git log
+> To uncommit from a point
+$ git reset commit-id
+> To uncommit from a point and completely remove changes
+$ git reset --hard commit-id
+
+> Use fork on Github to copy someone else's repo in your profile.
+
+> To clone at a specific point in commit history
+$ git checkout (commit SHA)
+> To go back
+$ git checkout (branch-name)
