@@ -1,0 +1,13 @@
+> Element selector starts with nothing.
+> Class selector starts with .
+> Universal selector starts with * (for every element on the page, rarely used)
+> ID selector starts with #
+> Attribute (like disabled) selector is enclosed in [attribute-name]
+
+> ID attribute is also added so you can jump to that part of the page by adding the #ID to the url.
+
+> Inline styles have the highest priority. Next is class style and then finally element style. If two of the same priority have clashing rules, the latter rule in the file is followed.
+
+> Inheritance is when a child element inherits some styles from a parent element. But inheritance has very low specificity even lower than browser defaults.
+> To force the parent style onto a child, use inherit for that property.
+> A better way would be to use a combinator. A combinator allows us to specify which element we want to apply style to by using multiple selectors. More specific rule has higher specificity.
