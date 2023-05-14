@@ -4,6 +4,8 @@
   max-width: 1200px;
   text-align: center;
   min-width: 700px;
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 
 .tableRow td,
