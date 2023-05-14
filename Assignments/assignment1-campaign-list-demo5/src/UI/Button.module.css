@@ -1,0 +1,13 @@
+.button {
+  border-radius: 6px;
+  background: rgb(0, 68, 255);
+  color: white;
+  border: 2px solid rgb(0, 68, 255);
+}
+
+.button:hover,
+.button:active {
+  border: 2px solid rgb(0, 68, 255);
+  color: rgb(0, 0, 255);
+  background: white;
+}

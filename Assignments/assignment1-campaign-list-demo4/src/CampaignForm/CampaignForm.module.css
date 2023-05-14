@@ -1,0 +1,34 @@
+.form {
+  margin-top: 1rem;
+}
+
+.group {
+  margin-top: 1rem;
+}
+
+.group label,
+.group input {
+  display: block;
+  width: 90%;
+  margin: auto;
+  max-width: 500px;
+  min-width: 300px;
+}
+
+.group input {
+  height: 2rem;
+  border: 1px solid grey;
+  border-radius: 6px;
+}
+
+.group input:focus {
+  outline: none;
+  border: 2px solid rgb(0, 68, 255);
+  background: rgb(211, 222, 255);
+}
+
+.form button {
+  margin: 1rem auto;
+  display: block;
+  width: 120px;
+}
