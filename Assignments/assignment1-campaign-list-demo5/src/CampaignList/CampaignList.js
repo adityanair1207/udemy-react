@@ -1,4 +1,3 @@
-// import Table from "react-bootstrap/Table";
 import getUsersFromAPI from "../services/UserAPIFetch";
 import { useEffect, useState } from "react";
 import DateRange, { active_status } from "../UI/DateRange";
@@ -88,84 +87,10 @@ const CampaignList = () => {
 
   return (
     <>
-      {/* <header
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "space-between",
-          marginBottom: "4px",
-        }}
-      >
-        <DateRange onDateSubmit={submittedDateRange} />
-        <Search onSearchChange={searchActive} />
-      </header> */}
-
-      {/* <header
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "space-between",
-          marginBottom: "4px",
-        }}
-      >
-        <DateRange onDateSubmit={submittedDateRange} />
-        <Search onSearchChange={searchActive} />
-      </header> */}
-
       <Header>
         <DateRange onDateSubmit={submittedDateRange} />
         <Search onSearchChange={searchActive} />
       </Header>
-
-      {/* <Table bordered hover>
-        <thead>
-          <tr>
-            <th>Campaign Name</th>
-            <th>User Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
-            <th>Budget</th>
-          </tr>
-        </thead>
-        <tbody>
-          {loading && (
-            <tr style={{ textAlign: "center" }}>
-              <td colSpan={6}>Fetching data...</td>
-            </tr>
-          )}
-          {displayCampaigns.length === 0 && (
-            <tr style={{ textAlign: "center" }}>
-              <td colSpan={6}>No matches found.</td>
-            </tr>
-          )}
-          {!loading && error && (
-            <tr style={{ color: "red", textAlign: "center" }}>
-              <td colSpan={6}>{error}</td>
-            </tr>
-          )}
-          {!loading &&
-            !error &&
-            displayCampaigns.map((campaign) => {
-              return (
-                <tr key={campaign.id}>
-                  <td>{campaign.name}</td>
-                  <td>{getUsername(campaign.userId)}</td>
-                  <td>{campaign.startDate}</td>
-                  <td>{campaign.endDate}</td>
-                  <td>
-                    {active_status(campaign.startDate, campaign.endDate) ? (
-                      <span style={{ color: "green" }}>Active</span>
-                    ) : (
-                      <span style={{ color: "red" }}>Inactive</span>
-                    )}
-                  </td>
-                  <td>{campaign.Budget}</td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </Table> */}
 
       <table className={styles.table}>
         <thead>

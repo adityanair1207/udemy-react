@@ -1,7 +1,3 @@
-// import Button from "react-bootstrap/Button";
-// import Col from "react-bootstrap/Col";
-// import Form from "react-bootstrap/Form";
-// import Row from "react-bootstrap/Row";
 import { useDispatch } from "react-redux";
 import { campaignActions } from "../store";
 import { useRef, useState } from "react";
@@ -67,72 +63,6 @@ const NewCampaignForm = () => {
 
   return (
     <>
-      {/* <Form onSubmit={submitHandler}>
-        <Row className="mb-3 col-lg-6">
-          <Form.Group as={Col}>
-            <Form.Label>Campaign Name:</Form.Label>
-            <Form.Control
-              type="text"
-              name="campaignName"
-              ref={nameInput}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group as={Col}>
-            <Form.Label>Start Date:</Form.Label>
-            <Form.Control
-              type="date"
-              name="startDate"
-              ref={startDateInput}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group as={Col}>
-            <Form.Label>End Date:</Form.Label>
-            <Form.Control
-              type="date"
-              name="endDate"
-              ref={endDateInput}
-              required
-            />
-          </Form.Group>
-        </Row>
-
-        <Row className="mb-3 col-lg-6">
-          <Form.Group as={Col}>
-            <Form.Label>User ID:</Form.Label>
-            <Form.Control
-              type="number"
-              name="userId"
-              ref={userIdInput}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group as={Col}>
-            <Form.Label>Budget:</Form.Label>
-            <Form.Control
-              type="number"
-              name="budget"
-              ref={budgetInput}
-              required
-            />
-          </Form.Group>
-        </Row>
-
-        {validation && <p style={{ color: "red" }}>{validation}</p>}
-
-        <Button
-          variant={submitting ? "secondary" : "primary"}
-          type="submit"
-          disabled={submitting}
-        >
-          {submitting ? "Submitting..." : "Submit"}
-        </Button>
-      </Form> */}
-
       <form onSubmit={submitHandler} className={styles.form}>
         <div className={styles.group}>
           <label htmlFor="campaignName">Campaign Name</label>

@@ -1,0 +1,40 @@
+> Unit Tests involve testing the individual building blocks (functions, components) in isolation.
+> Projects typically contain dozens or hundred of unit tests.
+
+> Integration Tests involve testing the combination of multiple building blocks.
+
+> End-to-End Tests involve testing complete scenarios in the app as the user would experience them.
+
+> We need some tools and need to perform some setup for Unit Tests.
+> For running the tests and asserting results, we will use Jest.
+> For rendering the React app, we will use React Testing Library.
+> Both tools are already setup when using create-react-app.
+
+> Create a new React app. App.test.js file contains some testing code by default. This file will test the App component. import "@testing-library/jest-dom";
+> Inside the test file, we have the test function which takes two arguments:
+> 1st argument is a description of the test.
+> 2nd argument is an anonymous function which contains the testing code.
+
+> First the App component is rendered using the third party render method.
+> Then, we get hold of some element from the "virtual screen" identified by text. Here we are looking for the text "learn react" in a case insenitive way.
+> Then we check if that element is in the document using expect() method.
+> The test will fail if the element is not found and will succeed if it is found.
+
+> To run this test, we have a test script just as we have a script for running the development server.
+> In the console, run npm test. Then press a to run all tests.
+
+> The 3 "A"s of writing tests:
+Arrange: Set up the test data, test conditions and test environment.
+Act: Run logic that should be tested.
+Assert: Compare execution results with expected results.
+
+> There are 3 screen functions to access the virtual component. The get, query, find. get functions throw an error if an element is not found. query functions return null if an element is not found. find functions will return a promise so its enough if something is eventually rendered on the screen.
+
+> To group tests together we use testing suites. A testing suite can be created using the global describe function. This function takes in 2 arguments:
+> The first argument is a description of the category to which the different tests will belong.
+> The second argument is an anonymous function where the different tests can be put.
+
+> To write an Act in a test, we can use userEvent object. userEvent helps us trigger user events in this virtual screen.
+
+> During testing we don't want to send http requests to servers.
+> So we will use a mock function which overwrites the fetch function and does not send a real http request. This is done using jest.fn()

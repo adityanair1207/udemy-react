@@ -81,7 +81,7 @@
 > Now we will store the cart data in backend firebase. So we will have to async code in our redux project. Async/side-effect code cannot be put in Reducer Function.
 > The async code can be put in 1) the components itself or 2) use action creators which we have only used indirectly so far.
 > In out project, firebase has no backend logic to detect previously added cart items. It just stores the data as is. So we will have to add more code to our front-end to transform that data to be properly stored on firebase.
-> Note: If you have synchronous, side-effect free code i.e., data transformations, prefer Reducers and avoid action creators or components. If ypu have async/side-effect code prefer action creators or components and never use Reducers.
+> Note: If you have synchronous, side-effect free code i.e., data transformations, prefer Reducers and avoid action creators or components. If you have async/side-effect code prefer action creators or components and never use Reducers.
 
 > Since we want to add async code, first we will add it to our App component. This could be done in any component. We will use useEffect hook here to add cart item to firebase as a side-effect.
 > One problem of useEffect that we need to fix is that it will execute when our app starts. This will send the initial (i.e. empty) cart to our backend and overwrite any data stored there.

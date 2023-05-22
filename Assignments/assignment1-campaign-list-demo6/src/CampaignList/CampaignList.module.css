@@ -1,0 +1,26 @@
+.table {
+  margin: auto;
+  width: 90%;
+  max-width: 1200px;
+  text-align: center;
+  min-width: 700px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.tableRow td,
+.tableRow th {
+  padding: 0.6rem;
+  border: 1px solid black;
+}
+
+.tableRow th {
+  background: rgb(211, 222, 255);
+  color: rgb(0, 68, 255);
+}
+
+@media (max-width: 48rem) {
+  .table {
+    width: 100%;
+  }
+}

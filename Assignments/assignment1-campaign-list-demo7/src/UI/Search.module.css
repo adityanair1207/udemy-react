@@ -1,0 +1,13 @@
+.input {
+  height: 2rem;
+  border: 1px solid grey;
+  border-radius: 6px;
+  margin-right: 0.25rem;
+  text-align: center;
+}
+
+.input:focus {
+  outline: none;
+  border: 1px solid rgb(0, 68, 255);
+  background: rgb(211, 222, 255);
+}
