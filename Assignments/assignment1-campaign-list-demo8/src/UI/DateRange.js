@@ -53,8 +53,8 @@ const DateRange = (props) => {
         ></input>
       </div>
       <div className={styles.btnGroup}>
-        <Button type="submit">Submit</Button>
-        <Button onClick={clearHandler}>Clear</Button>
+        <Button type="submit">Filter</Button>
+        <Button onClick={clearHandler}>Reset</Button>
       </div>
       {validation && <p style={{ color: "red", margin: 0 }}>{validation}</p>}
     </form>

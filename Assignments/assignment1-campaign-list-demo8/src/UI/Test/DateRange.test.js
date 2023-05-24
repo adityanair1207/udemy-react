@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import DateRange from "./DateRange";
-import CampaignList from "../CampaignList/CampaignList";
+import DateRange from "../DateRange";
+import CampaignList from "../../CampaignList/CampaignList";
 import { Provider } from "react-redux";
-import store from "../store";
+import store from "../../store";
 
 describe("DateRange component", () => {
   test("accepts start date and end date values", () => {
@@ -28,7 +28,7 @@ describe("DateRange component", () => {
     const endDateElement = screen.getByLabelText("End Date");
     fireEvent.change(endDateElement, { target: { value: "2020-11-10" } });
 
-    const submitButton = screen.getByText("Submit");
+    const submitButton = screen.getByText("Filter");
     fireEvent.click(submitButton);
 
     const errorElement = await screen.findByText(
@@ -52,14 +52,14 @@ describe("DateRange component", () => {
     const endDateElement = screen.getByLabelText("End Date");
     fireEvent.change(endDateElement, { target: { value: "2020-11-10" } });
 
-    const submitButton = screen.getByText("Submit");
+    const submitButton = screen.getByText("Filter");
     fireEvent.click(submitButton);
 
     const errorElement = await screen.findByText(
       "End date cannot be before start date."
     );
 
-    const clearButton = screen.getByText("Clear");
+    const clearButton = screen.getByText("Reset");
     fireEvent.click(clearButton);
 
     expect(errorElement).not.toBeInTheDocument();

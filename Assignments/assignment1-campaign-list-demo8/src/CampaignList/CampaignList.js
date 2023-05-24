@@ -115,7 +115,11 @@ const CampaignList = () => {
             users !== [] &&
             displayCampaigns.map((campaign) => {
               return (
-                <tr key={campaign.id} className={styles.tableRow}>
+                <tr
+                  key={campaign.id}
+                  className={styles.tableRow}
+                  data-testid="row"
+                >
                   <td>{campaign.name}</td>
                   <td>{getUsername(campaign.userId)}</td>
                   <td>{DateConverter(campaign.startDate)}</td>

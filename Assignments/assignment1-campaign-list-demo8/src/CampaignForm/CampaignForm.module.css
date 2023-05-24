@@ -1,5 +1,14 @@
 .form {
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 700px;
+  max-width: 1200px;
+  width: 90%;
 }
 
 .group {
@@ -11,14 +20,14 @@
   display: block;
   width: 90%;
   margin: auto;
-  max-width: 500px;
-  min-width: 300px;
+  width: 450px;
 }
 
 .group input {
   height: 2rem;
   border: 1px solid grey;
   border-radius: 6px;
+  padding: 0;
 }
 
 .group input:focus {
@@ -29,6 +38,15 @@
 
 .form button {
   margin: 1rem auto;
+  margin-left: 135%;
   display: block;
   width: 120px;
+}
+
+h2 {
+  margin-top: 1rem;
+  width: 450px;
+  font-size: 1.2rem;
+  display: inline-block;
+  text-align: center;
 }

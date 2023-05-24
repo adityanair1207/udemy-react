@@ -15,34 +15,33 @@ const CampaignForm = () => {
   const budgetInput = useRef("");
   const userIdInput = useRef("");
 
+  const dateHandler = () => {
+    let startDate = new Date(startDateInput.current.value);
+    let endDate = new Date(endDateInput.current.value);
+
+    if (startDate === "Invalid Date" || endDate === "Invalid Date") {
+      return;
+    }
+
+    if (endDate <= startDate) {
+      setValidation("End date cannot be before start date.");
+    } else {
+      setValidation();
+    }
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
+
+    if (validation) {
+      return;
+    }
 
     let startDate = new Date(startDateInput.current.value);
     let endDate = new Date(endDateInput.current.value);
 
-    if (endDate <= startDate) {
-      setValidation("End date cannot be before start date.");
-      return;
-    }
-    if (validation) {
-      setValidation();
-    }
-
-    startDate =
-      startDate.getMonth() +
-      1 +
-      "/" +
-      startDate.getDate() +
-      "/" +
-      startDate.getFullYear();
-    endDate =
-      endDate.getMonth() +
-      1 +
-      "/" +
-      endDate.getDate() +
-      "/" +
-      endDate.getFullYear();
+    startDate = startDate.toLocaleString("en-US").split(",")[0];
+    endDate = endDate.toLocaleString("en-US").split(",")[0];
 
     dispatch(
       campaignActions.addCampaign({
@@ -54,16 +53,13 @@ const CampaignForm = () => {
       })
     );
 
-    nameInput.current.value = "";
-    startDateInput.current.value = "";
-    endDateInput.current.value = "";
-    budgetInput.current.value = "";
-    userIdInput.current.value = "";
+    event.target.reset();
   };
 
   return (
     <>
       <form onSubmit={submitHandler} className={styles.form}>
+        <h2>Add New Campaign</h2>
         <div className={styles.group}>
           <label htmlFor="campaignName">Campaign Name</label>
           <input
@@ -82,6 +78,7 @@ const CampaignForm = () => {
             name="startDate"
             id="startDate"
             ref={startDateInput}
+            onChange={dateHandler}
             required
           ></input>
         </div>
@@ -93,6 +90,7 @@ const CampaignForm = () => {
             name="endDate"
             id="endDate"
             ref={endDateInput}
+            onChange={dateHandler}
             required
           ></input>
         </div>
@@ -125,7 +123,9 @@ const CampaignForm = () => {
           ></input>
         </div>
 
-        <Button type="submit">Submit</Button>
+        <div className={styles.group}>
+          <Button type="submit">Submit</Button>
+        </div>
       </form>
     </>
   );

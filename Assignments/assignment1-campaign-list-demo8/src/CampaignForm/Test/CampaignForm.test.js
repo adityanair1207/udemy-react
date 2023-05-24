@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import CampaignForm from "./CampaignForm";
+import CampaignForm from "../CampaignForm";
 import { Provider } from "react-redux";
-import store from "../store";
-import CampaignList from "../CampaignList/CampaignList";
+import store from "../../store";
+import CampaignList from "../../CampaignList/CampaignList";
 
 describe("CampaignForm component", () => {
   test("accepts form data", () => {

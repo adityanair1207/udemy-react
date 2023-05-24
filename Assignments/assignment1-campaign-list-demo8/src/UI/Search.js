@@ -8,7 +8,7 @@ const Search = (props) => {
   return (
     <input
       type="text"
-      placeholder="Search by Campaign"
+      placeholder="Search by Campaign Name"
       onChange={searchHandler}
       className={styles.input}
     ></input>
